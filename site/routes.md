@@ -46,10 +46,13 @@
     - SaveChoreMW
     - GetAllFamilyMembersMW - needed to populate the dropdown for choosing the family member
     - RenderMW(add-edit-chore.html)
+      - res.locals.chore is undefined
  - GET,POST - Update chore `/chores/edit/:choreid`
     - SaveChoreMW
     - GetChoreByIdMW
     - GetAllFamilyMembersMW - needed to populate the dropdown for choosing the family member
     - RenderMW(add-edit-chore.html)
+      - res.locals.chore is the chore to be updated
+      - if res.locals.chore is null, display a message that the chore does not exist
  - GET - Delete chore `/chores/delete/:choreid`
     - DeleteChoreMW
