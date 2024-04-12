@@ -1,0 +1,30 @@
+<%- include('common/header',{page: "family"}) -%>
+<div class="container">
+    <h1>Family Members <a href="/family/new"><img src="img/add-logo.png" class="d-inline" height="40"/></a></h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Role in Family</th>
+            <th scope="col">Age</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% allFamilyMembers.forEach(function(familyMember){ %>
+            <tr>
+                <td><%= familyMember.name %></td>
+                <td><%= familyMember.role %></td>
+                <td><%= familyMember.age %></td>
+                <td>
+                    <a href="/family/edit/<%= familyMember._id %>"><img src="img/edit-logo.png" class="d-inline"
+                                                                        height="20" alt="edit"/></a>
+                    <a href="/family/delete/<%= familyMember._id %>"><img src="img/delete-logo.png" class="d-inline"
+                                                                          height="20" alt="delete"/></a>
+                </td>
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+</div>
+<%- include('common/footer') -%>

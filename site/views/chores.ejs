@@ -1,0 +1,32 @@
+<%- include('common/header',{page: "chores"}) -%>
+<div class="container">
+    <h1>Chores <a href="/chores/new"><img src="img/add-logo.png" class="d-inline" height="40"/></a></h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Assigned To</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Priority</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% allChores.forEach(function(chore){ %>
+            <tr>
+                <td><%= chore.name %></td>
+                <td><%= allFamilyMembers.find(member => member._id === chore.familyMemberId).name %></td>
+                <td><%= chore.dueDate.toLocaleDateString() %></td>
+                <td><%= chore.priority %></td>
+                <td>
+                    <a href="/chores/edit/<%= chore._id %>"><img src="img/edit-logo.png" class="d-inline" height="20"
+                                                                 alt="edit"/></a>
+                    <a href="/chores/delete/<%= chore._id %>"><img src="img/delete-logo.png" class="d-inline"
+                                                                   height="20" alt="delete"/></a>
+                </td>
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+</div>
+<%- include('common/footer') -%>

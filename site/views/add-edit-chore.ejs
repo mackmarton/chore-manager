@@ -1,0 +1,45 @@
+<%- include('common/header',{page: "chores"}) -%>
+<div class="container">
+    <h1 id="title">
+        <% if (typeof chore === 'undefined') { %>Add
+        <% } else { %> Edit
+        <% } %>
+        Chore</h1>
+    <form method="POST">
+        <input type="hidden" name="_id" id="_id"
+               value="<%= (typeof chore === 'undefined') ? '' : chore._id %>"/>
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name"
+                   value="<%= (typeof chore === 'undefined') ? '' : chore.name %>" required>
+        </div>
+        <div class="mb-3">
+            <label for="familyMemberId" class="form-label">Assigned To</label>
+            <select class="form-select" id="familyMemberId" name="familyMemberId" required>
+                <option <% if(typeof chore === 'undefined'){ %>selected
+                        <% } %>
+                >Choose...
+                </option>
+                <% allFamilyMembers.forEach(function(familyMember){ %>
+                    <option value="<%= familyMember._id %>"
+                            <% if(typeof chore !== 'undefined' && chore.familyMemberId === familyMember._id){ %>selected
+                            <% } %>
+                    ><%= familyMember.name %></option>
+                <% }); %>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="dueDate" class="form-label">Due Date</label>
+            <input type="date" class="form-control" id="dueDate" name="dueDate"
+                   value="<%= (typeof chore === 'undefined' || !chore.dueDate) ? '' : chore.dueDate.toISOString().split('T')[0] %>"
+                   required>
+        </div>
+        <div class="mb-3">
+            <label for="priority" class="form-label">Priority</label>
+            <input type="number" class="form-control" id="priority" name="priority" min="1" max="10"
+                   value="<%= (typeof chore === 'undefined') ? '' : chore.priority %>" required>
+        </div>
+        <input type="submit" class="btn btn-success" role="button" value="Save"/>
+    </form>
+</div>
+<%- include('common/footer') -%>

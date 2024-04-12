@@ -1,7 +1,13 @@
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: var(--bs-nav-pills-link-active-color);
     background-color: #FFA500FF;
 }
+
 .nav-link {
     color: #000000FF;
+}
+
+.basic-button {
+    background-color: #FFA500FF !important;
+    border: var(--bs-btn-border-width) solid #FFA500FF;
 }
