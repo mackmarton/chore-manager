@@ -15,18 +15,36 @@
         <% allChores.forEach(function(chore){ %>
             <tr>
                 <td><%= chore.name %></td>
-                <td><%= allFamilyMembers.find(member => member._id === chore.familyMemberId).name %></td>
+                <% if(allFamilyMembers.find(member => member._id.equals(chore._familyMember)) !== undefined){ %>
+                    <td><%= allFamilyMembers.find(member => member._id.equals(chore._familyMember)).name %></td>
+                <% }else{
+                    throw new Error('One of the chores has an invalid family member id.');
+                } %>
                 <td><%= chore.dueDate.toLocaleDateString() %></td>
                 <td><%= chore.priority %></td>
                 <td>
                     <a href="/chores/edit/<%= chore._id %>"><img src="img/edit-logo.png" class="d-inline" height="20"
                                                                  alt="edit"/></a>
-                    <a href="/chores/delete/<%= chore._id %>"><img src="img/delete-logo.png" class="d-inline"
-                                                                   height="20" alt="delete"/></a>
-                </td>
-            </tr>
+                    <a href="#" class="delete-btn" data-id="<%= chore._id %>"><img src="img/delete-logo.png" class="d-inline" height="20" alt="delete"/></a>            </tr>
         <% }); %>
         </tbody>
     </table>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this chore?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a id="confirmDelete" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
 </div>
 <%- include('common/footer') -%>

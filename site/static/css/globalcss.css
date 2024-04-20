@@ -11,3 +11,19 @@
     background-color: #FFA500FF !important;
     border: var(--bs-btn-border-width) solid #FFA500FF;
 }
+
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    padding-top: 20px;
+}
+.error-alert {
+    width: 85%;
+}
+
+.error-gif {
+    margin-top: 20px;
+}

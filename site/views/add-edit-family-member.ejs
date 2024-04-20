@@ -5,26 +5,52 @@
         <% } else { %> Edit
         <% } %>
         Family Member</h1>
+    <% var familyMemberIsNull = typeof familyMember !== 'undefined' && familyMember === null; if (familyMemberIsNull) { %>
+        <div class="alert alert-danger" role="alert">
+            Error: Family Member with given ID could not be found.
+        </div>
+    <% } %>
     <form method="POST">
         <input type="hidden" name="_id" id="_id"
-               value="<%= (typeof familyMember === 'undefined') ? '' : familyMember._id %>"/>
+               <% if(familyMemberIsNull){ %>disabled
+        <% }else{ %>
+               value="<%= (typeof familyMember === 'undefined') ? '' : familyMember._id %>"
+                <% } %>
+        >
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control" id="name" name="name"
-                   value="<%= (typeof familyMember === 'undefined') ? '' : familyMember.name %>" required>
+                   required
+                   <% if(familyMemberIsNull){ %>disabled
+            <% }else{ %>
+                   value="<%= (typeof familyMember === 'undefined') ? '' : familyMember.name %>"
+                    <% } %>
+            >
         </div>
         <div class="mb-3">
             <label for="role" class="form-label">Role in Family</label>
             <input type="text" class="form-control" id="role" name="role"
-                   value="<%= (typeof familyMember === 'undefined') ? '' : familyMember.role %>" required>
+                   required
+                   <% if(familyMemberIsNull){ %>disabled
+            <% }else{ %>
+                   value="<%= (typeof familyMember === 'undefined') ? '' : familyMember.role %>"
+                    <% } %>
+            >
         </div>
         <div class="mb-3">
             <label for="age" class="form-label">Age</label>
-            <input type="text" class="form-control" id="age" name="age"
-                   value="<%= (typeof familyMember === 'undefined') ? '' : familyMember.age %>" required>
+            <input type="number" class="form-control" id="age" name="age"
+                   required
+                   <% if(familyMemberIsNull){ %>disabled
+            <% }else{ %>
+                   value="<%= (typeof familyMember === 'undefined') ? '' : familyMember.age %>"
+                    <% } %>
+            >
         </div>
-        <input type="submit" class="btn btn-success" role="button" value="Save"/>
+        <input type="submit" class="btn btn-success" role="button" value="Save"
+               <% if(familyMemberIsNull){ %>disabled
+                <% } %>
+        >
     </form>
-
 </div>
 <%- include('common/footer') -%>

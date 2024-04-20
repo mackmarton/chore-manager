@@ -6,7 +6,7 @@
 - SaveFamilyMemberMW - Adds or edits a family member to/in the database
     - If req.body is empty it does nothing aka. returns next()
     - If successful, redirects to /family/
-- DeleteFamilyMemberMW - Deletes a family member from the database and redirects to /family/
+- DeleteFamilyMemberMW - Deletes a family member from the database and redirects to /family Also deletes all assigned chores for the family member
 
 - GetAllChoresMW - Fetches all chores from the database into `res.locals.allChores`
 - GetChoreByIdMW - Fetches a chore by id from the database into `res.locals.chore`

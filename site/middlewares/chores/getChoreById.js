@@ -3,14 +3,15 @@
  * If the chore could not be found, res.locals.chore will be set to null
  */
 module.exports = (objectRepository) => {
+  const ChoreModel = objectRepository.ChoreModel;
   return (req, res, next) => {
-    res.locals.chore = {
-      _id: req.params.choreId,
-      name: "Clean the kitchen",
-      dueDate: new Date("2024-04-18"),
-      priority: 2,
-      familyMemberId: "id1",
-    };
-    next();
+    return ChoreModel.findOne({ _id: req.params.choreId })
+      .then((chore) => {
+        res.locals.chore = chore;
+        return next();
+      })
+      .catch((err) => {
+        return next(err);
+      });
   };
 };

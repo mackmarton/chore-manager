@@ -1,0 +1,16 @@
+<%- include('common/header',{page: "error"}) -%>
+
+<div class="error-container">
+    <div class="error-alert">
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Oops! It seems like something unexpected happened. :(</h4>
+            <hr>
+            <p class="mb-0">
+                <% if(typeof error !== "undefined"){ %><%= error %>
+                <% } %>
+            </p>
+        </div>
+    </div>
+    <img src="/img/error.gif" alt="Error" width="300" class="img-fluid error-gif">
+</div>
+<%- include('common/footer') -%>

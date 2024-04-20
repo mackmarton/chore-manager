@@ -4,13 +4,15 @@
  */
 
 module.exports = (objectRepository) => {
+  const FamilyMemberModel = objectRepository.FamilyMemberModel;
   return (req, res, next) => {
-    res.locals.familyMember = {
-      _id: req.params.familyMemberId,
-      name: "John",
-      role: "Father",
-      age: 51,
-    };
-    next();
+    return FamilyMemberModel.findOne({ _id: req.params.familyMemberId })
+      .then((familyMember) => {
+        res.locals.familyMember = familyMember;
+        return next();
+      })
+      .catch((err) => {
+        return next(err);
+      });
   };
 };

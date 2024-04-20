@@ -8,8 +8,14 @@ const saveChoreMW = require("../middlewares/chores/saveChore");
 const deleteChoreMW = require("../middlewares/chores/deleteChore");
 const renderMW = require("../middlewares/render");
 
+const FamilyMemberModel = require("../models/familyMember");
+const ChoreModel = require("../models/chore");
+
 module.exports = function (app) {
-  const objectRepository = {};
+  const objectRepository = {
+    FamilyMemberModel,
+    ChoreModel,
+  };
 
   app.get("/", renderMW(objectRepository, "index"));
 
@@ -27,13 +33,14 @@ module.exports = function (app) {
 
   app.use(
     "/family/edit/:familyMemberId",
-    saveFamilyMemberMW(objectRepository),
     getFamilyMemberById(objectRepository),
+    saveFamilyMemberMW(objectRepository),
     renderMW(objectRepository, "add-edit-family-member"),
   );
 
   app.get(
     "/family/delete/:familyMemberId",
+    getFamilyMemberById(objectRepository),
     deleteFamilyMemberMW(objectRepository),
   );
 
@@ -53,11 +60,20 @@ module.exports = function (app) {
 
   app.use(
     "/chores/edit/:choreId",
-    saveChoreMW(objectRepository),
     getChoreByIdMW(objectRepository),
+    saveChoreMW(objectRepository),
     getAllFamilyMembersMW(objectRepository),
     renderMW(objectRepository, "add-edit-chore"),
   );
 
-  app.get("/chores/delete/:choreId", deleteChoreMW(objectRepository));
+  app.get(
+    "/chores/delete/:choreId",
+    getChoreByIdMW(objectRepository),
+    deleteChoreMW(objectRepository),
+  );
+
+  app.use((err, req, res, next) => {
+    res.locals.error = err;
+    renderMW(objectRepository, "error")(err, req, res, next);
+  });
 };
