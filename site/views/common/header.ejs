@@ -18,7 +18,7 @@
 
     <ul class="nav nav-pills">
         <% page = (typeof page === 'undefined' ? "home" : page) %>
-        <% page = ((page !== "home" && page !== "chores" && page !== "family" && page !== "error") ? "home" : page) %>
+        <% page = ((page !== "home" && page !== "chores" && page !== "family" && page !== "error" && page !== "login" && page !== "register") ? "home" : page) %>
         <li class="nav-item"><a href="/" class="nav-link <% if (page === "home") { %>active<% } %>" aria-current="page">Home</a>
         </li>
         <li class="nav-item"><a href="/chores" class="nav-link <% if (page === "chores") { %>active<% } %>">Chores</a>
@@ -26,4 +26,23 @@
         <li class="nav-item"><a href="/family" class="nav-link <% if (page === "family") { %>active<% } %>">Family</a>
         </li>
     </ul>
+
+    <div class="dropdown text-end">
+        <% var showDropdown = false; %>
+        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
+           onclick="var dropdownMenu = document.querySelector('.dropdown-menu'); dropdownMenu.classList.toggle('show');"
+           aria-expanded="false">
+            <img src="/img/user.png" alt="mdo" width="32" height="32" >
+        </a>
+        <ul class="dropdown-menu text-small shadow"
+            style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(0px, 34.2261px, 0px);"
+            data-popper-placement="bottom-end">
+            <% if (typeof req.session.familyMember !== 'undefined') { %>
+                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            <% } else { %>
+                <li><a class="dropdown-item" href="/login">Login</a></li>
+                <li><a class="dropdown-item" href="/register">Register</a></li>
+            <% } %>
+        </ul>
+    </div>
 </header>

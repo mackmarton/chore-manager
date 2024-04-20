@@ -1,29 +1,40 @@
 <%- include('common/header',{page: "family"}) -%>
 <div class="container">
-    <h1>Family Members <a href="/family/new"><img src="img/add-logo.png" class="d-inline" height="40"/></a></h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Role in Family</th>
-            <th scope="col">Age</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <% allFamilyMembers.forEach(function(familyMember){ %>
+    <% if(req.session.familyMember._family !== undefined && req.session.familyMember._family !== null){ %>
+        <h1>Family <a href="/family/new"><img src="img/add-logo.png" class="d-inline" height="40"/></a></h1>
+        <table class="table">
+            <thead>
             <tr>
-                <td><%= familyMember.name %></td>
-                <td><%= familyMember.role %></td>
-                <td><%= familyMember.age %></td>
-                <td>
-                    <a href="/family/edit/<%= familyMember._id %>"><img src="img/edit-logo.png" class="d-inline"
-                                                                        height="20" alt="edit"/></a>
-                    <a href="#" class="delete-btn" data-id="<%= familyMember._id %>"><img src="img/delete-logo.png" class="d-inline" height="20" alt="delete"/></a>                </td>
+                <th scope="col">Name</th>
+                <th scope="col">Role in Family</th>
+                <th scope="col">Age</th>
+                <th scope="col"></th>
             </tr>
-        <% }); %>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            <% allFamilyMembers.forEach(function(familyMember){ %>
+                <tr>
+                    <td><%= familyMember.name %></td>
+                    <td><%= familyMember.role %></td>
+                    <td><%= familyMember.age %></td>
+                    <td>
+                        <a href="/family/edit/<%= familyMember._id %>"><img src="img/edit-logo.png" class="d-inline"
+                                                                            height="20" alt="edit"/></a>
+                        <a href="#" class="delete-btn" data-id="<%= familyMember._id %>"><img src="img/delete-logo.png"
+                                                                                              class="d-inline"
+                                                                                              height="20"
+                                                                                              alt="delete"/></a></td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    <% }else{ %>
+        <h1>Family</h1>
+        <div class="alert alert-danger" role="alert">
+            You are not part of any family. Please ask one of your family members to add you to a family.
+        </div>
+    <% } %>
+
 </div>
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">

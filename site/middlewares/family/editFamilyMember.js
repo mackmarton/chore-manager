@@ -16,10 +16,12 @@ module.exports = (objectRepository) => {
 
     console.log(res.locals.familyMember);
 
-    const familyMember =
-      res.locals.familyMember !== undefined
-        ? res.locals.familyMember
-        : new FamilyMemberModel();
+    let familyMember;
+    if (res.locals.familyMember !== undefined) {
+      familyMember = res.locals.familyMember;
+    } else {
+      throw new Error("Family member not found");
+    }
 
     familyMember.name = req.body.name;
     familyMember.role = req.body.role;

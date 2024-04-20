@@ -6,7 +6,10 @@
 module.exports = (objectRepository) => {
   const FamilyMemberModel = objectRepository.FamilyMemberModel;
   return (req, res, next) => {
-    return FamilyMemberModel.findOne({ _id: req.params.familyMemberId })
+    return FamilyMemberModel.findOne({
+      _id: req.params.familyMemberId,
+      _family: req.session.familyMember._family,
+    })
       .then((familyMember) => {
         res.locals.familyMember = familyMember;
         return next();

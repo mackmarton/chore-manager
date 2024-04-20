@@ -2,10 +2,10 @@
 module.exports = (objectRepository, viewName) => {
   if (viewName === "error") {
     return (err, req, res, next) => {
-      res.render(viewName, res.locals);
+      res.render(viewName, { req, locals: res.locals });
     };
   }
   return (req, res, next) => {
-    res.render(viewName, res.locals);
+    res.render(viewName, { req, locals: res.locals });
   };
 };

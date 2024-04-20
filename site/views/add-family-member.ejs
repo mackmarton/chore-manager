@@ -1,0 +1,17 @@
+<%- include('common/header',{page: "family"}) -%>
+
+<div class="container">
+    <h1>Add Family Member</h1>
+    <form action="/family/new" method="POST">
+        <div class="form-group">
+            <label for="familyMembers">Choose Family Members:</label>
+            <select name="familyMembers" id="familyMembers" multiple class="form-control">
+                <% familyMembersWithNoFamily.forEach(function(member) { %>
+                    <option value="<%= member.id %>"><%= member.name %>(<%= member.email %>)</option>
+                <% }); %>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Add</button>
+    </form>
+</div>
+<%- include('common/footer') -%>

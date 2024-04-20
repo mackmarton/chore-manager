@@ -1,10 +1,6 @@
 <%- include('common/header',{page: "family"}) -%>
 <div class="container">
-    <h1 id="title">
-        <% if (typeof familyMember === 'undefined') { %>Add
-        <% } else { %> Edit
-        <% } %>
-        Family Member</h1>
+    <h1 id="title"> Edit Family Member </h1>
     <% var familyMemberIsNull = typeof familyMember !== 'undefined' && familyMember === null; if (familyMemberIsNull) { %>
         <div class="alert alert-danger" role="alert">
             Error: Family Member with given ID could not be found.
